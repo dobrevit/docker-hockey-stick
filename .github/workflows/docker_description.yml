@@ -10,7 +10,7 @@ jobs:
   main:
     runs-on: ubuntu-latest
     env:
-      DOCKER_IMAGE: mclueppers/haproxy-lua-base
+      DOCKER_IMAGE: mclueppers/haproxy-hockey-stick
     steps:
       - name: Check out repo
         id: checkout
