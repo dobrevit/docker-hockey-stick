@@ -11,13 +11,13 @@ RUN apk -U --no-cache add \
     curl -L -o /tmp/haproxy-lua-dnsbl.tar.gz "https://github.com/dobrevit/haproxy-lua-dnsbl/archive/refs/tags/$DNSBL_VERSION.tar.gz" && \
     tar -xzf /tmp/haproxy-lua-utils.tar.gz -C /tmp && \
     tar -xzf /tmp/haproxy-lua-dnsbl.tar.gz -C /tmp && \
-    mkdir -p /app/lib && \
-    cp -r /tmp/haproxy-lua-utils-*/src/lib /app && \
-    cp -r /tmp/haproxy-lua-dnsbl-*/src/* /app
+    mkdir -p /lua/lib && \
+    cp -r /tmp/haproxy-lua-utils-*/src/lib /lua && \
+    cp -r /tmp/haproxy-lua-dnsbl-*/src/* /lua
 
 FROM mclueppers/haproxy-lua-base:v0.1.1
 
 RUN mkdir -p /etc/haproxy/lua/
 
-COPY --from=sources /app/* /etc/haproxy/lua
+COPY --from=sources /lua /etc/haproxy/lua
 COPY haproxy.cfg /etc/haproxy/haproxy.cfg
