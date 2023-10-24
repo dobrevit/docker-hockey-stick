@@ -1,0 +1,31 @@
+version: '3.3'
+
+services:
+  haproxy:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: hockey-stick
+    user: root
+    restart: always
+    environment:
+    - FQDN
+    - ALIAS_FQDNS
+    - KEYSERVER_HOST_PORT=192.168.122.1:11371
+    - HAP_CONF_DIR=/usr/local/etc/haproxy
+    - HAP_CACHE_DIR=/tmp
+    - HAP_LOG_FORMAT
+    - HAP_BEHIND_CLOUDFLARE
+    - HAP_BEHIND_PROXY
+    - HAP_DISABLE_PROMETHEUS=true
+    - HAP_DISABLE_CERTBOT=true
+    - HAP_DISABLE_SSL=true
+    command:
+      - haproxy
+      - -f
+      - /etc/haproxy/haproxy.d
+    ports:
+      - 8081:80
+    volumes:
+      - ./haproxy.d:/etc/haproxy/haproxy.d
+      - ./lists:/usr/local/etc/haproxy/lists

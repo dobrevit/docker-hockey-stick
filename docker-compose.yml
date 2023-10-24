@@ -1,4 +1,4 @@
-version: '3.8'
+version: '3.3'
 
 services:
   haproxy:
@@ -7,14 +7,14 @@ services:
       dockerfile: Dockerfile
     image: hockey-stick
     ports:
-      - 80:80
+      - 8081:80
     volumes:
       - ./haproxy.cfg:/etc/haproxy/haproxy.cfg
+    depends_on:
+      - http-echo
 
   http-echo:
     image: mendhak/http-https-echo
-    depends_on:
-      - haproxy
     environment:
       - DISABLE_REQUEST_LOGS=true
       - HTTP_PORT=5678
