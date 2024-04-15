@@ -1,4 +1,4 @@
-FROM alpine:3.17 as sources
+FROM alpine:3.19 as sources
 
 RUN apk -U --no-cache add \
         curl \
@@ -15,7 +15,7 @@ RUN apk -U --no-cache add \
     cp -r /tmp/haproxy-lua-utils-*/src/lib /lua && \
     cp -r /tmp/haproxy-lua-dnsbl-*/src/* /lua
 
-FROM mclueppers/haproxy-lua-base:v0.1.1
+FROM mclueppers/haproxy-lua-base:latest
 
 RUN mkdir -p /etc/haproxy/lua/
 
